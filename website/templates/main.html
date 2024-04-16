@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+</head>
+<body>
+    <h1>Welcome, {{ user_name }}!</h1>
+    <h2>Subscription Area</h2>
+    {% for music in subscribed_music %}
+        <div>
+            <p>Title: {{ music.title }}</p>
+            <p>Artist: {{ music.artist }}</p>
+            <p>Year: {{ music.year }}</p>
+            <img src="{{ music.img_url }}" alt="{{ music.artist }} image">
+            <form action="/unsubscribe" method="post">
+                <input type="hidden" name="music_id" value="{{ music.music_id }}">
+                <input type="submit" value="Remove">
+            </form>
+        </div>
+    {% endfor %}
+    <h2>Query Area</h2>
+    <form action="/query" method="post">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title"><br>
+        <label for="year">Year:</label><br>
+        <input type="text" id="year" name="year"><br>
+        <label for="artist">Artist:</label><br>
+        <input type="text" id="artist" name="artist"><br><br>
+        <input type="submit" value="Query">
+    </form>
+    <br>
+    <a href="/logout">Logout</a>
+</body>
+</html>
