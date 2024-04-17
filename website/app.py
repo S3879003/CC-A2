@@ -5,7 +5,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Set a secret key for flashing messages
 
 # AWS DynamoDB setup
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2')
 login_table = dynamodb.Table('login')  # Replace 'login' with your table name
 music_table = dynamodb.Table('music')  # Replace 'music' with your table name
 
