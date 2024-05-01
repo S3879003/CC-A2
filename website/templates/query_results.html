@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Result</title>
+</head>
+<body>
+    <h1>Query Result</h1>
+    {% if queried_music %}
+        <h2>Retrieved Music Information:</h2>
+        <ul>
+            {% for music in queried_music %}
+                <li>
+                    Title: {{ music.title }}<br>
+                    Artist: {{ music.artist }}<br>
+                    Year: {{ music.year }}<br>
+                    <img src="{{ music.img_url }}" alt="{{ music.artist }} image">
+                    {% if music.subscribed == 'yes' %}
+                    <form action="/unsubscribe" method="post">
+                        <input type="hidden" name="music_title" value="{{ music.title }}">
+                        <input type="hidden" name="music_artist" value="{{ music.artist }}">
+                        <input type="submit" value="Unsubscribe">
+                    </form>
+                    {% else %}
+                    <form action="/subscribe" method="post">
+                        <input type="hidden" name="music_title" value="{{ music.title }}">
+                        <input type="hidden" name="music_artist" value="{{ music.artist }}">
+                        <input type="submit" value="Subscribe">
+                    </form>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No result is retrieved. Please query again.</p>
+    {% endif %}
+</body>
+</html>
